@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glory Haven | Premium Perfumes</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --gold: #d4af37;
+            --card-bg: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+            backdrop-filter: blur(5px);
+        }
+
+        .brand-logo {
+            color: var(--gold);
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--gold);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 100px 50px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .section-title {
+            color: var(--gold);
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* Hero Section with Background Video */
+        #home {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 140px 5% 100px;
+            border-bottom: 1px solid #333;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            object-fit: cover;
+            object-position: right center;
+        }
+
+        #home h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--gold);
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.95);
+        }
+
+        @media (max-width: 768px) {
+            #home {
+                padding: 100px 6% 120px;
+            }
+            #home h1 {
+                font-size: 40px;
+            }
+            #home p {
+                font-size: 16px;
+            }
+            .hero-bg {
+                object-position: center;
+            }
+        }
+
+        #home p {
+            font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            color: #ddd;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.95);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        #about p {
+            max-width: 800px;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background-color: #222;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        /* Scroll Reveal & Keyframe Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-animate {
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Quiz & Reviews Styles */
+        .quiz-card,
+        .reviews-wrapper {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 35px 25px;
+            max-width: 750px;
+            width: 100%;
+            margin: 20px auto;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: #222;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 33%;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .question-card,
+        .result-card {
+            display: none;
+        }
+
+        .question-card.active,
+        .result-card.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 16px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-btn i {
+            font-size: 22px;
+            color: var(--gold);
+        }
+
+        .option-btn:hover {
+            border-color: var(--gold);
+            background: #2a2515;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .result-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--gold);
+            margin: 15px auto;
+            display: block;
+        }
+
+        .result-name {
+            font-size: 26px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .result-desc {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Review Carousel Styles */
+        .review-card {
+            display: none;
+        }
+
+        .review-card.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .review-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #ddd;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .customer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+
+        .customer-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .customer-tag {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .nav-btn {
+            background: #222;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        #faq {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+
+        .faq-btn {
+            width: 100%;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 18px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 20px;
+            color: #ccc;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .faq-btn.active+.faq-answer {
+            display: block;
+        }
+
+        #contact {
+            background: #151515;
+            width: 100%;
+        }
+
+        #contact p {
+            margin-bottom: 30px;
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px 20px;
+            background: #000;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #222;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 20px;
+            margin: 0 10px;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: var(--gold);
+        }
+
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .float-wa:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #25d366;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0f0f0f;
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--gold);
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 15px 20px;
+                display: block;
+                border-top: 1px solid #222;
+            }
+
+            section {
+                padding: 100px 20px 40px;
+            }
+
+            #home h1 {
+                font-size: 40px;
+            }
+
+            #home p {
+                font-size: 15px;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .float-wa {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+        }
+
+        /* --- Floating Cart Toggle Button --- */
+        .cart-trigger {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gold);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .cart-trigger:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #e74c3c;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* --- Side Cart Drawer --- */
+        .cart-drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: #141414;
+            border-left: 1px solid #333;
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .cart-drawer.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            color: var(--gold);
+            font-size: 22px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-cart:hover {
+            color: var(--gold);
+        }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            color: var(--gold);
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .qty-btn {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .remove-item {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #333;
+            background: #111;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .cart-total span:last-child {
+            color: var(--gold);
+        }
+
+        /* --- Quick View Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quickview-modal {
+            background: var(--card-bg);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            max-width: 750px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .quickview-modal {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: var(--gold);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #333;
+        }
+
+        .modal-info h2 {
+            color: var(--gold);
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .modal-info .cat {
+            color: #888;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .modal-info .price {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .notes-box {
+            background: #111;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #222;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .notes-box div {
+            margin-bottom: 4px;
+        }
+
+        .notes-box strong {
+            color: var(--gold);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#home" class="brand-logo">Glory Haven</a>
+        <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" class="nav-item">Home</a></li>
+            <li><a href="#about" class="nav-item">About</a></li>
+            <li><a href="#products" class="nav-item">Products</a></li>
+            <li><a href="#quiz" class="nav-item">Scent Finder</a></li>
+            <li><a href="#reviews" class="nav-item">Reviews</a></li>
+            <li><a href="#faq" class="nav-item">FAQ</a></li>
+            <li><a href="#contact" class="nav-item">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <img class="hero-bg" src="Data/Hero.jpg" alt="Glory Haven Premium Perfumes Hero Background">
+        <div style="z-index: 1;" class="hero-animate">
+            <h1>Glory Haven</h1>
+            <p>Discover the essence of luxury. Handcrafted fragrances that leave an unforgettable golden trail.</p>
+            <a href="#products" class="btn">Explore Collection</a>
+        </div>
+    </section>
+
+    <section id="about" class="reveal">
+        <h2 class="section-title">Our Story</h2>
+        <p>Glory Haven is a proud startup venture founded by visionary women. We believe that a fragrance is more than
+            just a scent; it is an aura, a memory, and a statement. Crafted with passion, our perfumes bring together
+            the finest ingredients to empower and inspire. Welcome to our golden atmosphere.</p>
+    </section>
+
+    <section id="products" class="reveal">
+        <h2 class="section-title">Signature Collection</h2>
+        <p style="color: #aaa; margin-bottom: 20px;">Click 'Buy Now' to order directly via WhatsApp.</p>
+        <div class="product-grid" id="productGrid">
+            <!-- JS injects products here instantly -->
+        </div>
+    </section>
+
+    <!-- Scent Finder Quiz Section -->
+    <section id="quiz" class="reveal">
+        <h2 class="section-title">Find Your Signature Scent</h2>
+        <p style="color: #aaa; margin-bottom: 20px;">Answer 3 quick questions to discover your ideal fragrance match.
+        </p>
+
+        <div class="quiz-card">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question-card active" id="q1">
+                <h3 class="question-text">1. Which Pakistani occasion or routine are you shopping for?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="selectAnswer(1, 'royal')">
+                        <i class="fas fa-gem"></i>
+                        <span>Weddings, Barat & Dholkis</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(1, 'fresh')">
+                        <i class="fas fa-mosque"></i>
+                        <span>Jummah Prayers, Eid & Daily Wear</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(1, 'romantic')">
+                        <i class="fas fa-glass-cheers"></i>
+                        <span>Family Dawats & Evening Gatherings</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" id="q2">
+                <h3 class="question-text">2. Which traditional fragrance profile appeals to your taste?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="selectAnswer(2, 'oudh')">
+                        <i class="fas fa-flask"></i>
+                        <span>Rich Pure Oudh, Amber & Attar Notes</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(2, 'citrus')">
+                        <i class="fas fa-sun"></i>
+                        <span>Cooling Citrus & Summer Heat Resistors</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(2, 'floral')">
+                        <i class="fas fa-spa"></i>
+                        <span>Motiya (Jasmine), Rose & Gulab Notes</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" id="q3">
+                <h3 class="question-text">3. What performance feature is most important to you?</h3>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="selectAnswer(3, 'mysterious')">
+                        <i class="fas fa-clock"></i>
+                        <span>24-Hour Projection & Royal Trail</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(3, 'vibrant')">
+                        <i class="fas fa-wind"></i>
+                        <span>Sweat-Resistant Intense Freshness</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(3, 'elegant')">
+                        <i class="fas fa-heart"></i>
+                        <span>Subtle, Elegant & Non-Overpowering</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="result-card" id="resultCard">
+                <h3 class="result-name" id="resultName">Midnight Oudh</h3>
+                <img src="" alt="Perfume Match" class="result-img" id="resultImg">
+                <p class="result-desc" id="resultDesc">A majestic blend crafted for bold presence and golden aura.</p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#" id="buyMatchBtn" target="_blank" class="btn"><i class="fab fa-whatsapp"></i> Order This
+                        Match</a>
+                    <button class="btn" onclick="restartQuiz()"><i class="fas fa-redo"></i> Retake Quiz</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section id="reviews" class="reveal">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p style="color: #aaa; margin-bottom: 20px;">Real experiences from fragrance lovers across the country.</p>
+
+        <div class="reviews-wrapper">
+            <!-- Review 1 -->
+            <div class="review-card active">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Oud Collection is pure luxury in a bottle! I wore it to a wedding reception and
+                    got non-stop compliments all evening. The trail lasts well over 12 hours!"</p>
+                <div class="customer-info">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+                        alt="Ayesha K." class="customer-avatar">
+                    <div>
+                        <div class="customer-name">Ayesha K.</div>
+                        <div class="customer-tag">Verified Buyer • Oud Collection</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Healing Flora is my new daily scent. It's soft, elegant, and not overpowering at
+                    all. Plus, supporting a women-led startup makes it even sweeter!"</p>
+                <div class="customer-info">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80"
+                        alt="Sara Ahmed" class="customer-avatar">
+                    <div>
+                        <div class="customer-name">Sara Ahmed</div>
+                        <div class="customer-tag">Verified Buyer • Healing Flora</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Fast WhatsApp ordering and packaging felt like unboxing a high-end designer
+                    gift. Maison Paris keeps me energetic throughout long workdays."</p>
+                <div class="customer-info">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+                        alt="Zain Malik" class="customer-avatar">
+                    <div>
+                        <div class="customer-name">Zain Malik</div>
+                        <div class="customer-tag">Verified Buyer • Maison Paris</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-nav">
+                <button class="nav-btn" onclick="prevReview()"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn" onclick="nextReview()"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="reveal">
+        <h2 class="section-title">Common Questions</h2>
+        <div style="width: 100%;">
+            <div class="faq-item">
+                <button class="faq-btn">How long does the fragrance last? <span>+</span></button>
+                <div class="faq-answer">Our perfumes are highly concentrated (Eau de Parfum) and typically last 8-12
+                    hours on skin, and up to 24 hours on clothes depending on the notes.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-btn">How do I place an order? <span>+</span></button>
+                <div class="faq-answer">Simply click the "Buy Now" button on any product. It will redirect you to our
+                    WhatsApp where you can finalize your order details and shipping address.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="reveal">
+        <h2 class="section-title">Get in Touch</h2>
+        <p>Have questions or need a personalized recommendation? Chat with us directly.</p>
+        <a href="https://wa.me/923644095356?text=Hi%20Glory%20Haven,%20I%20want%20to%20know%20more%20about%20your%20perfumes."
+            target="_blank" class="btn">Chat on WhatsApp</a>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+        &copy; 2026 Glory Haven. Empowered Women Startup. All Rights Reserved.
+    </footer>
+
+    <a href="https://wa.me/923644095356?text=Hi%20Glory%20Haven,%20I%20need%20help." class="float-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Floating Cart Toggle Button -->
+    <div class="cart-trigger" onclick="toggleCartDrawer()">
+        <i class="fas fa-shopping-bag"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
+    </div>
+
+    <!-- Side Cart Drawer -->
+    <div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Your Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCartDrawer()">&times;</button>
+        </div>
+        <div class="cart-body" id="cartBody">
+            <p style="color: #888; text-align: center; margin-top: 40px;">Your cart is currently empty.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total Amount:</span>
+                <span id="cartTotal">Rs. 0</span>
+            </div>
+            <button class="btn" style="width: 100%; text-align: center;" onclick="checkoutWhatsApp()"><i
+                    class="fab fa-whatsapp"></i> Checkout via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal-overlay" id="quickViewOverlay" onclick="closeQuickView(event)">
+        <div class="quickview-modal" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeQuickViewModal()">&times;</button>
+            <img src="" alt="Perfume" class="modal-img" id="modalImg">
+            <div class="modal-info">
+                <div class="cat" id="modalCategory">Oudh</div>
+                <h2 id="modalTitle">Midnight Oudh</h2>
+                <div class="price" id="modalPrice">Rs. 2500</div>
+
+                <div class="notes-box">
+                    <div style="margin-bottom: 10px; line-height: 1.4; color: #ddd; font-style: italic;" id="modalDescription">Premium fragrance description.</div>
+                    <div><strong>Top Notes:</strong> <span id="modalTopNotes">Bergamot, Saffron</span></div>
+                    <div><strong>Heart Notes:</strong> <span id="modalHeartNotes">Damask Rose, Jasmine</span></div>
+                    <div><strong>Base Notes:</strong> <span id="modalBaseNotes">Cambodian Oudh, Amber, Musk</span></div>
+                    <div><strong>Longevity & Sillage:</strong> <span id="modalPerformance">12+ Hours (Intense)</span></div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" style="flex: 1;" id="modalAddCartBtn"><i class="fas fa-shopping-bag"></i> Add to
+                        Cart</button>
+                    <a href="#" id="modalDirectBuy" target="_blank" class="btn" style="flex: 1;"><i
+                            class="fab fa-whatsapp"></i> Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Script
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinksMenu = document.getElementById('nav-links');
+        const navItemsList = document.querySelectorAll('.nav-item');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinksMenu.classList.toggle('active');
+        });
+
+        navItemsList.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinksMenu.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion Script
+        const faqBtns = document.querySelectorAll('.faq-btn');
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.classList.toggle('active');
+                let span = this.querySelector('span');
+                span.textContent = this.classList.contains('active') ? '-' : '+';
+            });
+        });
+
+        // Product Data Script
+        const productsList = [
+            {
+                id: 0,
+                name: "Oud Collection",
+                category: "Oudh",
+                price: "Rs. 2500",
+                priceNum: 2500,
+                imgSrc: "Data/oud_collection.jpg",
+                details: {
+                    description: "An exquisite, royal blend of rich Cambodian Oud and rare saffron, leaving a deep, warm amber trail. Formulated to offer a commanding, premium presence that endures all day.",
+                    top: "Saffron, Nutmeg, Lavender",
+                    heart: "Agarwood (Oud), Patchouli",
+                    base: "Musk, Sandalwood, Patchouli",
+                    performance: "Long lasting (50 ml)"
+                }
+            },
+            {
+                id: 1,
+                name: "Black Oud",
+                category: "Oudh",
+                price: "Rs. 2500",
+                priceNum: 2500,
+                imgSrc: "Data/black_oud.jpg",
+                details: {
+                    description: "A bold, limited-edition oriental formulation centering around dark incense, leather, and premium rose absolute. Crafted for those seeking a highly sophisticated, mysterious trail.",
+                    top: "Incense, Dark Oud",
+                    heart: "Leather, Patchouli, Rose",
+                    base: "Woody Notes, Sandalwood, Amber",
+                    performance: "Long lasting, Eau perfume limited (50 ml)"
+                }
+            },
+            {
+                id: 2,
+                name: "Healing Flora",
+                category: "Floral",
+                price: "Rs. 2500",
+                priceNum: 2500,
+                imgSrc: "Data/healing_flora.jpg",
+                details: {
+                    description: "A dual-experience masterpiece featuring Healing Flora, a fresh, feminine bouquet of jasmine and velvet rose, accompanied by Luxury Black Oud, a strong, muscular masculine scent with deep woody tones.",
+                    top: "Feminine floral notes, Jasmine, Fresh Citrus",
+                    heart: "Rose, White Flowers, Tuberose",
+                    base: "White Musk, Sandalwood, Amber",
+                    performance: "Feminine, floral, fresh / Luxury Black OUD (Men woody strong, muscular) (50 ml)"
+                }
+            },
+            {
+                id: 3,
+                name: "Maison Paris",
+                category: "Fresh",
+                price: "Rs. 2500",
+                priceNum: 2500,
+                imgSrc: "Data/masion_paris.jpg",
+                details: {
+                    description: "A vibrant and sophisticated French-inspired fragrance. Opens with bright notes of grapefruit and lemon zest, transitioning into a warm, aromatic base of cedarwood and vetiver.",
+                    top: "Grapefruit, Lemon Zest, Pink Pepper",
+                    heart: "Ginger, Jasmine, Mint",
+                    base: "Cedarwood, Sandalwood, Vetiver, Incense",
+                    performance: "Long lasting (50 ml)"
+                }
+            }
+        ];
+
+        const productGrid = document.getElementById('productGrid');
+        const whatsappNumber = "923644095356";
+
+        let productsHTML = '';
+        productsList.forEach(product => {
+            productsHTML += `
+                <div class="product-card">
+                    <img src="${product.imgSrc}" alt="${product.name}" class="product-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80';">
+                    <div class="product-category">${product.category}</div>
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-price">${product.price}</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+                        <button onclick="openQuickView(${product.id})" class="btn" style="padding: 8px 12px; font-size: 13px;"><i class="fas fa-eye"></i> Quick View</button>
+                        <button onclick="addToCart(${product.id})" class="btn" style="padding: 8px 12px; font-size: 13px; background: var(--gold); color: #000;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    </div>
+                </div>
+            `;
+        });
+        productGrid.innerHTML = productsHTML;
+
+        // --- Cart State & Management ---
+        let cart = [];
+
+        function toggleCartDrawer() {
+            document.getElementById('cartDrawer').classList.toggle('active');
+            document.getElementById('cartOverlay').classList.toggle('active');
+        }
+
+        function addToCart(productId) {
+            const product = productsList[productId];
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        function updateCartQty(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartBody = document.getElementById('cartBody');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartTotal = document.getElementById('cartTotal');
+
+            let totalCount = 0;
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<p style="color: #888; text-align: center; margin-top: 40px;">Your cart is currently empty.</p>';
+            } else {
+                let html = '';
+                cart.forEach(item => {
+                    totalCount += item.qty;
+                    totalPrice += item.priceNum * item.qty;
+                    html += `
+                        <div class="cart-item">
+                            <img src="${item.imgSrc}" alt="${item.name}" class="cart-item-img">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">${item.price}</div>
+                                <div class="cart-item-qty">
+                                    <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">-</button>
+                                    <span>${item.qty}</span>
+                                    <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    `;
+                });
+                cartBody.innerHTML = html;
+            }
+
+            cartBadge.textContent = totalCount;
+            cartTotal.textContent = "Rs. " + totalPrice;
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Your cart is empty! Please add some perfumes first.");
+                return;
+            }
+            let summaryLines = cart.map(item => `• ${item.name} (x${item.qty}) - Rs. ${item.priceNum * item.qty}`);
+            let total = cart.reduce((acc, item) => acc + (item.priceNum * item.qty), 0);
+            let messageStr = `Hi Glory Haven, I would like to place an order for:\n\n${summaryLines.join('\n')}\n\n*Total Amount: Rs. ${total}*\n\nPlease confirm availability and delivery details.`;
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageStr)}`, '_blank');
+        }
+
+        // --- Quick View Modal Management ---
+        let currentModalProductId = null;
+
+        function openQuickView(productId) {
+            const product = productsList[productId];
+            currentModalProductId = productId;
+
+            document.getElementById('modalImg').src = product.imgSrc;
+            document.getElementById('modalCategory').textContent = product.category;
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalPrice').textContent = product.price;
+
+            document.getElementById('modalTopNotes').textContent = product.details.top;
+            document.getElementById('modalHeartNotes').textContent = product.details.heart;
+            document.getElementById('modalBaseNotes').textContent = product.details.base;
+            document.getElementById('modalPerformance').textContent = product.details.performance;
+            document.getElementById('modalDescription').textContent = product.details.description;
+
+            const msg = encodeURIComponent(`Hi Glory Haven, I want to inquire about buying ${product.name} (${product.price}).`);
+            document.getElementById('modalDirectBuy').href = `https://wa.me/${whatsappNumber}?text=${msg}`;
+
+            document.getElementById('modalAddCartBtn').onclick = function () {
+                addToCart(productId);
+                closeQuickViewModal();
+            };
+
+            document.getElementById('quickViewOverlay').classList.add('active');
+        }
+
+        function closeQuickViewModal() {
+            document.getElementById('quickViewOverlay').classList.remove('active');
+        }
+
+        function closeQuickView(event) {
+            if (event.target.id === 'quickViewOverlay') {
+                closeQuickViewModal();
+            }
+        }
+
+        // URL Update Script
+        const sections = document.querySelectorAll('section');
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    if (history.pushState) {
+                        history.pushState(null, null, '#' + id);
+                    } else {
+                        window.location.hash = id;
+                    }
+                    navItemsList.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // Scroll Reveal Animation Script
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- Quiz Interactive Logic ---
+        const answers = {};
+        const perfumeDatabase = {
+            "oudh": {
+                name: "Oud Collection",
+                img: "Data/oud_collection.jpg",
+                desc: "An exquisite, royal blend of rich Cambodian Oud and rare saffron, leaving a deep, warm amber trail. Formulated to offer a commanding, premium presence that endures all day.",
+                price: "Rs. 2500"
+            },
+            "citrus": {
+                name: "Maison Paris",
+                img: "Data/masion_paris.jpg",
+                desc: "A vibrant and sophisticated French-inspired fragrance. Opens with bright notes of grapefruit and lemon zest, transitioning into a warm, aromatic base of cedarwood and vetiver.",
+                price: "Rs. 2500"
+            },
+            "floral": {
+                name: "Healing Flora",
+                img: "Data/healing_flora.jpg",
+                desc: "A dual-experience masterpiece featuring Healing Flora, a fresh, feminine bouquet of jasmine and velvet rose, accompanied by Luxury Black Oud, a strong, muscular masculine scent with deep woody tones.",
+                price: "Rs. 2500"
+            }
+        };
+
+        function selectAnswer(step, choice) {
+            answers[step] = choice;
+            if (step === 1) {
+                document.getElementById('q1').classList.remove('active');
+                document.getElementById('q2').classList.add('active');
+                document.getElementById('progressBar').style.width = '66%';
+            } else if (step === 2) {
+                document.getElementById('q2').classList.remove('active');
+                document.getElementById('q3').classList.add('active');
+                document.getElementById('progressBar').style.width = '100%';
+            } else if (step === 3) {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('q3').classList.remove('active');
+            const key = answers[2] || 'oudh';
+            const match = perfumeDatabase[key];
+
+            document.getElementById('resultName').textContent = match.name;
+            document.getElementById('resultImg').src = match.img;
+            document.getElementById('resultDesc').textContent = match.desc;
+
+            const msg = encodeURIComponent(`Hi Glory Haven, I took your Scent Finder Quiz and matched with ${match.name} (${match.price})! I'd like to place an order.`);
+            document.getElementById('buyMatchBtn').href = `https://wa.me/${whatsappNumber}?text=${msg}`;
+
+            document.getElementById('resultCard').classList.add('active');
+        }
+
+        function restartQuiz() {
+            document.getElementById('resultCard').classList.remove('active');
+            document.getElementById('q1').classList.add('active');
+            document.getElementById('progressBar').style.width = '33%';
+        }
+
+        // --- Reviews Carousel Interactive Logic ---
+        let currentReviewIdx = 0;
+        const reviewCards = document.querySelectorAll('.review-card');
+
+        function showReview(idx) {
+            reviewCards.forEach((r, i) => {
+                r.classList.toggle('active', i === idx);
+            });
+        }
+
+        function nextReview() {
+            currentReviewIdx = (currentReviewIdx + 1) % reviewCards.length;
+            showReview(currentReviewIdx);
+        }
+
+        function prevReview() {
+            currentReviewIdx = (currentReviewIdx - 1 + reviewCards.length) % reviewCards.length;
+            showReview(currentReviewIdx);
+        }
+
+        // Auto-play carousel every 6 seconds
+        setInterval(nextReview, 6000);
+    </script>
+</body>
+
+</html>
