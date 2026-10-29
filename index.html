@@ -44,13 +44,14 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(15, 15, 15, 0.95);
+            background: rgba(15, 15, 15, 0.97);
             padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid #333;
+            -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
         }
 
@@ -302,12 +303,16 @@
 
         .reveal {
             opacity: 0;
+            -webkit-transform: translateY(40px);
             transform: translateY(40px);
+            -webkit-transition: opacity 0.8s ease-out, -webkit-transform 0.8s ease-out;
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        .reveal.active {
+        .reveal.active,
+        .no-intersection-observer .reveal {
             opacity: 1;
+            -webkit-transform: translateY(0);
             transform: translateY(0);
         }
 
@@ -1252,33 +1257,40 @@
     </div>
 
     <script>
-        // Mobile Menu Script
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinksMenu = document.getElementById('nav-links');
-        const navItemsList = document.querySelectorAll('.nav-item');
+        // ===== COMPATIBILITY: Detect IntersectionObserver support =====
+        // If the browser doesn't support IntersectionObserver, add a fallback class
+        // so that all .reveal elements become visible via CSS
+        if (!('IntersectionObserver' in window)) {
+            document.documentElement.className += ' no-intersection-observer';
+        }
 
-        mobileMenu.addEventListener('click', () => {
+        // Mobile Menu Script
+        var mobileMenu = document.getElementById('mobile-menu');
+        var navLinksMenu = document.getElementById('nav-links');
+        var navItemsList = document.querySelectorAll('.nav-item');
+
+        mobileMenu.addEventListener('click', function() {
             navLinksMenu.classList.toggle('active');
         });
 
-        navItemsList.forEach(item => {
-            item.addEventListener('click', () => {
+        for (var ni = 0; ni < navItemsList.length; ni++) {
+            navItemsList[ni].addEventListener('click', function() {
                 navLinksMenu.classList.remove('active');
             });
-        });
+        }
 
         // FAQ Accordion Script
-        const faqBtns = document.querySelectorAll('.faq-btn');
-        faqBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
+        var faqBtns = document.querySelectorAll('.faq-btn');
+        for (var fi = 0; fi < faqBtns.length; fi++) {
+            faqBtns[fi].addEventListener('click', function () {
                 this.classList.toggle('active');
-                let span = this.querySelector('span');
+                var span = this.querySelector('span');
                 span.textContent = this.classList.contains('active') ? '-' : '+';
             });
-        });
+        }
 
         // Product Data Script
-        const productsList = [
+        var productsList = [
             {
                 id: 0,
                 name: "Oud Collection",
@@ -1350,41 +1362,43 @@
                 savings: "Save Rs. 5,000",
                 imgSrc: "Data/glory_pack_6.jpg",
                 details: {
-                    description: "Special Mega Value Deal: 6 Glory Pack in 10K only — Save Rs 5,000! Elevate your scent wardrobe with 6 full-sized (50ml) mastercrafted luxury perfumes. An opulent assortment of royal oudhs, invigorating scents, and romantic florals.",
+                    description: "Special Mega Value Deal: 6 Glory Pack in 10K only \u2014 Save Rs 5,000! Elevate your scent wardrobe with 6 full-sized (50ml) mastercrafted luxury perfumes. An opulent assortment of royal oudhs, invigorating scents, and romantic florals.",
                     top: "Royal Saffron, Bergamot, Pink Pepper & Fresh Citrus",
                     heart: "Dark Oud, Velvet Rose, Damask Jasmine & Spices",
                     base: "Cambodian Oud, Sandalwood, Warm Amber & White Musk",
-                    performance: "6 x 50ml Luxury Bottles • 12+ Hours Longevity • Mega Saver Bundle (Save Rs. 5,000)"
+                    performance: "6 x 50ml Luxury Bottles \u2022 12+ Hours Longevity \u2022 Mega Saver Bundle (Save Rs. 5,000)"
                 }
             }
         ];
 
-        const productGrid = document.getElementById('productGrid');
-        const whatsappNumber = "923342236693";
+        var productGrid = document.getElementById('productGrid');
+        var whatsappNumber = "923342236693";
 
-        let productsHTML = '';
-        productsList.forEach(product => {
-            const badgeHTML = product.badge ? `<div class="discount-badge">${product.badge}</div>` : '';
-            const origPriceHTML = product.originalPrice ? `<span class="original-price">${product.originalPrice}</span> ` : '';
-            const savingsHTML = product.savings ? `<span class="savings-tag">(${product.savings})</span>` : '';
-            productsHTML += `
-                <div class="product-card ${product.badge ? 'featured-deal' : ''}">
-                    ${badgeHTML}
-                    <img src="${product.imgSrc}" alt="${product.name}" class="product-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80';">
-                    <div class="product-category">${product.category}</div>
-                    <h3 class="product-title">${product.name}</h3>
-                    <div class="product-price">${origPriceHTML}${product.price} ${savingsHTML}</div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: auto;">
-                        <button onclick="openQuickView(${product.id})" class="btn" style="padding: 8px 12px; font-size: 13px;"><i class="fas fa-eye"></i> Quick View</button>
-                        <button onclick="addToCart(${product.id})" class="btn" style="padding: 8px 12px; font-size: 13px; background: var(--gold); color: #000;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
-                </div>
-            `;
-        });
+        // Build product cards using string concatenation (ES5-safe, no template literals)
+        var productsHTML = '';
+        for (var pi = 0; pi < productsList.length; pi++) {
+            var product = productsList[pi];
+            var badgeHTML = product.badge ? '<div class="discount-badge">' + product.badge + '</div>' : '';
+            var origPriceHTML = product.originalPrice ? '<span class="original-price">' + product.originalPrice + '</span> ' : '';
+            var savingsHTML = product.savings ? '<span class="savings-tag">(' + product.savings + ')</span>' : '';
+            var featuredClass = product.badge ? 'featured-deal' : '';
+
+            productsHTML += '<div class="product-card ' + featuredClass + '">' +
+                badgeHTML +
+                '<img src="' + product.imgSrc + '" alt="' + product.name + '" class="product-img" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80\';">' +
+                '<div class="product-category">' + product.category + '</div>' +
+                '<h3 class="product-title">' + product.name + '</h3>' +
+                '<div class="product-price">' + origPriceHTML + product.price + ' ' + savingsHTML + '</div>' +
+                '<div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: auto;">' +
+                '<button onclick="openQuickView(' + product.id + ')" class="btn" style="padding: 8px 12px; font-size: 13px;"><i class="fas fa-eye"></i> Quick View</button>' +
+                '<button onclick="addToCart(' + product.id + ')" class="btn" style="padding: 8px 12px; font-size: 13px; background: var(--gold); color: #000;"><i class="fas fa-cart-plus"></i> Add to Cart</button>' +
+                '</div>' +
+                '</div>';
+        }
         productGrid.innerHTML = productsHTML;
 
         // --- Cart State & Management ---
-        let cart = [];
+        var cart = [];
 
         function toggleCartDrawer() {
             document.getElementById('cartDrawer').classList.toggle('active');
@@ -1392,64 +1406,92 @@
         }
 
         function addToCart(productId) {
-            const product = productsList[productId];
-            const existing = cart.find(item => item.id === productId);
+            var product = productsList[productId];
+            var existing = null;
+            for (var ci = 0; ci < cart.length; ci++) {
+                if (cart[ci].id === productId) {
+                    existing = cart[ci];
+                    break;
+                }
+            }
             if (existing) {
                 existing.qty += 1;
             } else {
-                cart.push({ ...product, qty: 1 });
+                // Manual shallow copy instead of spread operator (ES5-safe)
+                var newItem = {
+                    id: product.id,
+                    name: product.name,
+                    category: product.category,
+                    price: product.price,
+                    priceNum: product.priceNum,
+                    imgSrc: product.imgSrc,
+                    qty: 1
+                };
+                cart.push(newItem);
             }
             updateCartUI();
             toggleCartDrawer();
         }
 
         function updateCartQty(productId, delta) {
-            const item = cart.find(i => i.id === productId);
+            var item = null;
+            for (var qi = 0; qi < cart.length; qi++) {
+                if (cart[qi].id === productId) {
+                    item = cart[qi];
+                    break;
+                }
+            }
             if (item) {
                 item.qty += delta;
                 if (item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== productId);
+                    var filtered = [];
+                    for (var ri = 0; ri < cart.length; ri++) {
+                        if (cart[ri].id !== productId) filtered.push(cart[ri]);
+                    }
+                    cart = filtered;
                 }
             }
             updateCartUI();
         }
 
         function removeFromCart(productId) {
-            cart = cart.filter(i => i.id !== productId);
+            var filtered = [];
+            for (var ri = 0; ri < cart.length; ri++) {
+                if (cart[ri].id !== productId) filtered.push(cart[ri]);
+            }
+            cart = filtered;
             updateCartUI();
         }
 
         function updateCartUI() {
-            const cartBody = document.getElementById('cartBody');
-            const cartBadge = document.getElementById('cartBadge');
-            const cartTotal = document.getElementById('cartTotal');
+            var cartBody = document.getElementById('cartBody');
+            var cartBadge = document.getElementById('cartBadge');
+            var cartTotal = document.getElementById('cartTotal');
 
-            let totalCount = 0;
-            let totalPrice = 0;
+            var totalCount = 0;
+            var totalPrice = 0;
 
             if (cart.length === 0) {
                 cartBody.innerHTML = '<p style="color: #888; text-align: center; margin-top: 40px;">Your cart is currently empty.</p>';
             } else {
-                let html = '';
-                cart.forEach(item => {
+                var html = '';
+                for (var ui = 0; ui < cart.length; ui++) {
+                    var item = cart[ui];
                     totalCount += item.qty;
                     totalPrice += item.priceNum * item.qty;
-                    html += `
-                        <div class="cart-item">
-                            <img src="${item.imgSrc}" alt="${item.name}" class="cart-item-img">
-                            <div class="cart-item-details">
-                                <div class="cart-item-title">${item.name}</div>
-                                <div class="cart-item-price">${item.price}</div>
-                                <div class="cart-item-qty">
-                                    <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">-</button>
-                                    <span>${item.qty}</span>
-                                    <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
-                                </div>
-                            </div>
-                            <button class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    `;
-                });
+                    html += '<div class="cart-item">' +
+                        '<img src="' + item.imgSrc + '" alt="' + item.name + '" class="cart-item-img">' +
+                        '<div class="cart-item-details">' +
+                        '<div class="cart-item-title">' + item.name + '</div>' +
+                        '<div class="cart-item-price">' + item.price + '</div>' +
+                        '<div class="cart-item-qty">' +
+                        '<button class="qty-btn" onclick="updateCartQty(' + item.id + ', -1)">-</button>' +
+                        '<span>' + item.qty + '</span>' +
+                        '<button class="qty-btn" onclick="updateCartQty(' + item.id + ', 1)">+</button>' +
+                        '</div></div>' +
+                        '<button class="remove-item" onclick="removeFromCart(' + item.id + ')"><i class="fas fa-trash-alt"></i></button>' +
+                        '</div>';
+                }
                 cartBody.innerHTML = html;
             }
 
@@ -1462,24 +1504,29 @@
                 alert("Your cart is empty! Please add some perfumes first.");
                 return;
             }
-            let summaryLines = cart.map(item => `• ${item.name} (x${item.qty}) - Rs. ${item.priceNum * item.qty}`);
-            let total = cart.reduce((acc, item) => acc + (item.priceNum * item.qty), 0);
-            let messageStr = `*✨ GLORY HAVEN LUXURY PERFUMES ✨*\n*Official Order Request*\n\nAssalam-o-Alaikum,\nI would like to place an order for the following items:\n\n${summaryLines.join('\n')}\n\n*💵 Total Amount: Rs. ${total}*\n\nPlease confirm availability, payment methods, and estimated delivery schedule.\n\nThank you!`;
-            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageStr)}`, '_blank');
+            var summaryLines = [];
+            var total = 0;
+            for (var ci = 0; ci < cart.length; ci++) {
+                var item = cart[ci];
+                summaryLines.push('\u2022 ' + item.name + ' (x' + item.qty + ') - Rs. ' + (item.priceNum * item.qty));
+                total += item.priceNum * item.qty;
+            }
+            var messageStr = '*\u2728 GLORY HAVEN LUXURY PERFUMES \u2728*\n*Official Order Request*\n\nAssalam-o-Alaikum,\nI would like to place an order for the following items:\n\n' + summaryLines.join('\n') + '\n\n*\uD83D\uDCB5 Total Amount: Rs. ' + total + '*\n\nPlease confirm availability, payment methods, and estimated delivery schedule.\n\nThank you!';
+            window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(messageStr), '_blank');
         }
 
         // --- Quick View Modal Management ---
-        let currentModalProductId = null;
+        var currentModalProductId = null;
 
         function openQuickView(productId) {
-            const product = productsList[productId];
+            var product = productsList[productId];
             currentModalProductId = productId;
 
             document.getElementById('modalImg').src = product.imgSrc;
             document.getElementById('modalCategory').textContent = product.category;
             document.getElementById('modalTitle').textContent = product.name;
             if (product.originalPrice) {
-                document.getElementById('modalPrice').innerHTML = `<span class="original-price">${product.originalPrice}</span> ${product.price} <span class="savings-tag">(${product.savings || product.badge})</span>`;
+                document.getElementById('modalPrice').innerHTML = '<span class="original-price">' + product.originalPrice + '</span> ' + product.price + ' <span class="savings-tag">(' + (product.savings || product.badge) + ')</span>';
             } else {
                 document.getElementById('modalPrice').textContent = product.price;
             }
@@ -1490,8 +1537,8 @@
             document.getElementById('modalPerformance').textContent = product.details.performance;
             document.getElementById('modalDescription').textContent = product.details.description;
 
-            const msg = encodeURIComponent(`Assalam-o-Alaikum Glory Haven, I would like to inquire about purchasing *${product.name}* (${product.price}${product.savings ? ' - ' + product.savings : ''}). Kindly guide me with the ordering and delivery details.`);
-            document.getElementById('modalDirectBuy').href = `https://wa.me/${whatsappNumber}?text=${msg}`;
+            var msg = encodeURIComponent('Assalam-o-Alaikum Glory Haven, I would like to inquire about purchasing *' + product.name + '* (' + product.price + (product.savings ? ' - ' + product.savings : '') + '). Kindly guide me with the ordering and delivery details.');
+            document.getElementById('modalDirectBuy').href = 'https://wa.me/' + whatsappNumber + '?text=' + msg;
 
             document.getElementById('modalAddCartBtn').onclick = function () {
                 addToCart(productId);
@@ -1511,46 +1558,76 @@
             }
         }
 
-        // URL Update Script
-        const sections = document.querySelectorAll('section');
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
+        // URL Update & Scroll Reveal — with IntersectionObserver support check
+        var sections = document.querySelectorAll('section');
+        var revealElements = document.querySelectorAll('.reveal');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    if (history.pushState) {
-                        history.pushState(null, null, '#' + id);
-                    } else {
-                        window.location.hash = id;
-                    }
-                    navItemsList.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === '#' + id) {
-                            link.classList.add('active');
+        if ('IntersectionObserver' in window) {
+            // Modern browsers: use IntersectionObserver
+            var observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
+
+            var observer = new IntersectionObserver(function(entries) {
+                for (var ei = 0; ei < entries.length; ei++) {
+                    var entry = entries[ei];
+                    if (entry.isIntersecting) {
+                        var id = entry.target.getAttribute('id');
+                        if (history.pushState) {
+                            history.pushState(null, null, '#' + id);
+                        } else {
+                            window.location.hash = id;
                         }
-                    });
+                        for (var li = 0; li < navItemsList.length; li++) {
+                            navItemsList[li].classList.remove('active');
+                            if (navItemsList[li].getAttribute('href') === '#' + id) {
+                                navItemsList[li].classList.add('active');
+                            }
+                        }
+                    }
                 }
-            });
-        }, observerOptions);
+            }, observerOptions);
 
-        sections.forEach(section => observer.observe(section));
+            for (var si = 0; si < sections.length; si++) {
+                observer.observe(sections[si]);
+            }
 
-        // Scroll Reveal Animation Script
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+            var revealObserver = new IntersectionObserver(function(entries) {
+                for (var ri = 0; ri < entries.length; ri++) {
+                    if (entries[ri].isIntersecting) {
+                        entries[ri].target.classList.add('active');
+                    }
                 }
-            });
-        }, { threshold: 0.15 });
+            }, { threshold: 0.05 });
 
-        revealElements.forEach(el => revealObserver.observe(el));
+            for (var rvi = 0; rvi < revealElements.length; rvi++) {
+                revealObserver.observe(revealElements[rvi]);
+            }
+        } else {
+            // Fallback for older browsers: immediately make all sections visible
+            for (var fbi = 0; fbi < revealElements.length; fbi++) {
+                revealElements[fbi].classList.add('active');
+            }
+        }
+
+        // ===== SAFETY NET: Force-reveal products section after 2 seconds =====
+        // In case IntersectionObserver doesn't trigger (some WebViews, low-end devices),
+        // this ensures the products section becomes visible no matter what.
+        setTimeout(function() {
+            var productsSection = document.getElementById('products');
+            if (productsSection && !productsSection.classList.contains('active')) {
+                productsSection.classList.add('active');
+            }
+            // Also reveal all other sections as a fallback
+            var allReveals = document.querySelectorAll('.reveal');
+            for (var ti = 0; ti < allReveals.length; ti++) {
+                if (!allReveals[ti].classList.contains('active')) {
+                    allReveals[ti].classList.add('active');
+                }
+            }
+        }, 2000);
 
         // --- Quiz Interactive Logic ---
-        const answers = {};
-        const perfumeDatabase = {
+        var answers = {};
+        var perfumeDatabase = {
             "oudh": {
                 name: "Oud Collection",
                 img: "Data/oud_collection.jpg",
@@ -1588,15 +1665,15 @@
 
         function showResult() {
             document.getElementById('q3').classList.remove('active');
-            const key = answers[2] || 'oudh';
-            const match = perfumeDatabase[key];
+            var key = answers[2] || 'oudh';
+            var match = perfumeDatabase[key];
 
             document.getElementById('resultName').textContent = match.name;
             document.getElementById('resultImg').src = match.img;
             document.getElementById('resultDesc').textContent = match.desc;
 
-            const msg = encodeURIComponent(`Assalam-o-Alaikum Glory Haven, I completed your Scent Finder Quiz and matched with *${match.name}* (${match.price})! I would love to place an order for this perfume.`);
-            document.getElementById('buyMatchBtn').href = `https://wa.me/${whatsappNumber}?text=${msg}`;
+            var msg = encodeURIComponent('Assalam-o-Alaikum Glory Haven, I completed your Scent Finder Quiz and matched with *' + match.name + '* (' + match.price + ')! I would love to place an order for this perfume.');
+            document.getElementById('buyMatchBtn').href = 'https://wa.me/' + whatsappNumber + '?text=' + msg;
 
             document.getElementById('resultCard').classList.add('active');
         }
@@ -1608,13 +1685,17 @@
         }
 
         // --- Reviews Carousel Interactive Logic ---
-        let currentReviewIdx = 0;
-        const reviewCards = document.querySelectorAll('.review-card');
+        var currentReviewIdx = 0;
+        var reviewCards = document.querySelectorAll('.review-card');
 
         function showReview(idx) {
-            reviewCards.forEach((r, i) => {
-                r.classList.toggle('active', i === idx);
-            });
+            for (var rci = 0; rci < reviewCards.length; rci++) {
+                if (rci === idx) {
+                    reviewCards[rci].classList.add('active');
+                } else {
+                    reviewCards[rci].classList.remove('active');
+                }
+            }
         }
 
         function nextReview() {
